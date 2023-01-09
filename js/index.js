@@ -168,7 +168,7 @@ function goToLocations(param){
             html=locationsHtml(item,level);
             $warehouses.append(html);
         }
-    })
+    });
     $warehouses.append('<div id="'+address+'" onclick="addPart(this)" class="warehouse"><span class="fa fa-plus fa-7x mr-3"></span><a><p>Location</p></a></div>');
 }
 function goToPallots(param){
@@ -188,9 +188,11 @@ function goToPallots(param){
         temp=tempLoc.split("/")
         warehouseName=""
         console.log(temp[1]);
+        level=""
         $.each(warehouses,function(i,item){
             if(item.id==temp[1]){
                 warehouseName=item.name;
+                level=item.level;
                 console.log(item.name);
                 return false
             }
@@ -224,8 +226,10 @@ function goToPallots(param){
         localStorage.setItem("location",address);
         temp=loc.split("/")
         warehouseName=""
+        level=""
         $.each(warehouses,function(i,item){
             if(item.id==temp[1]){
+                level=item.level;
                 warehouseName=item.name;
                 return false
             }
@@ -266,10 +270,15 @@ function goToPallots(param){
         else if(item.status=='fullyFilled'){color="#6ea331b8";tempStatus="Fully Filled"}
         else{tempStatus="Empty"}
         if(item.refferenceId==id){
-            html='<div style="background:'+color+';" id="'+item.id+'" onclick="goToBins(this)" class="location warehouse"><a><p>'+item.name+'<sub>'+tempStatus+'</sub></p></a></div>';
+            if(level=="pallots"){
+            html='<div style="background:'+color+';" id="'+item.id+'" onclick="goToPallotInfo(this)" class="location warehouse"><a><p>'+item.name+'<sub>'+tempStatus+'</sub></p></a></div>';
+            }
+            else{
+                html='<div style="background:'+color+';" id="'+item.id+'" onclick="goToBins(this)" class="location warehouse"><a><p>'+item.name+'<sub>'+tempStatus+'</sub></p></a></div>';  
+            }
             $businesses.append(html);
         }
-    })
+    });
 }
 function goToBins(param){
     loc1=localStorage.getItem("location");
@@ -386,6 +395,61 @@ function goToLocInfo(param){
             $locInfo=$("#locInfo");
             $.each(data["storage"],function(i,item){
                 html=goToLocInfoHTML(item);
+                $locInfo.append(html);
+            });
+        }
+    });
+}
+function goToPallotInfoHTML(item){
+    var html="<tr><td>"+item.partNo+"</td>"+
+    "<td>"+item.name+"</td>"+
+    "<td>"+item.quantity+"</td>"
+    return html
+}
+function goToPallotInfo(param){
+    document.getElementById("content").innerHTML="";
+    $content=$("#content");
+    data={"location":String(param.id)};
+    request=url+'/api/getPallotStorage/';
+    postData=JSON.stringify(data);
+    loc=localStorage.getItem("location");
+    id=param.id;
+    address=loc+"/"+id;
+    console.log(address);
+    localStorage.setItem("location",address);
+    temp=loc.split("/")
+    warehouseName=""
+    $.each(warehouses,function(i,item){
+        if(item.id==temp[1]){
+            warehouseName=item.name;
+            return false
+        }
+    })
+    locName="";
+    $.each(locations,function(i,item){
+        temp=loc.replace("/","");
+        console.log(temp);
+        console.log(item.id);
+        if(item.id==id){
+            locName=item.name;
+        }
+    });
+    address=warehouseName+"/"+locName;
+    $content.append('<h6 style="margin-bottom:10px">Pallots</h6>');
+    $content.append('<h6 id="title">'+'AJCL/'+address+'</h6><br>');
+    $content.append('<span id="back'+param.id+'" onclick="goToPallots(this)" class="back fa fa-reply fa-7x mr-3"><p>Back</p></span>');
+    $content.append("<table id='locInfo'><tr><th>Part No</th><th>Nomenclature</th><th>Quantity</th></td></table>");
+    $.ajax({
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        type: 'POST',
+        url: request,
+        data:postData,
+        success: function(data){
+            $locInfo=$("#locInfo");
+            $.each(data["storage"],function(i,item){
+                html=goToPallotInfoHTML(item);
                 $locInfo.append(html);
             });
         }

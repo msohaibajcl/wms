@@ -1165,14 +1165,17 @@ def w2wTransferStockIn():
                 serialNos=row[3]
                 serialNos=serialNos.split(",")
                 for i in range(len(serialNos)):
-                    query3="insert into pallotsstorage(serialNo, partNo, type, reference, status) values(%s,%s,%s,%s,%s)"
-                    cursor.execute(query3,(serialNos[count],row[2],"individual",data["locations"][str(serialNos[count])][1],'idel'))
-                    count+=1
-                    query4="update locations set status=%s where id=%s"
-                    cursor.execute(query4,('partiallyFilled',data["locations"][str(serialNos[count])][0]))
-                    query5="update pallots set status=%s where id=%s"
-                    cursor.execute(query5,('partiallyFilled',data["locations"][str(serialNos[count])][1]))
-                    db.commit()
+                    try:
+                        query3="insert into pallotsstorage(serialNo, partNo, type, reference, status) values(%s,%s,%s,%s,%s)"
+                        cursor.execute(query3,(serialNos[count],row[2],"individual",data["locations"][str(serialNos[count])][1],'idel'))
+                        count+=1
+                        query5="update pallots set status=%s where id=%s"
+                        cursor.execute(query5,('partiallyFilled',data["locations"][str(serialNos[count])][1]))
+                        db.commit()
+                        query4="update locations set status=%s where id=%s"
+                        cursor.execute(query4,('partiallyFilled',data["locations"][str(sn)][0]))
+                        db.commit()
+                    except:pass
     elif data["level"]=="bins":
         query="select id,assign,partNo,serialNumber,quantity,warehouse from w2witems where sgd=%s and status='nr'"
         cursor.execute(query,(data["ti"],))
