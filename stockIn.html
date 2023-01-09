@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AJCL | Stock In</title>
+    <link rel="shortcut icon" href="assests/images/ajclLogo.svg">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="assests/css/stockIn.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+    <script src="js/index.js"></script>
+    
+    <style>
+      .modal-content{
+        margin-top: 20%;
+        overflow-y: scroll;
+      }
+      .modal-dialog{
+        overflow: scroll;
+      }
+    </style>
+  </head>
+  <body onload="stockInFormLoad()">
+    <div class="warehouseInFormMainBody">
+    <h1>STOCK IN FORM</h1>
+    <br><br>
+    <form action="#" id="form">
+      <fieldset>
+        <div class="mainInformationAddStock">
+        <label>Transactional Number: <br><input type="text" id="shipmentNumber" name="shipmentNumber" placeholder="Enter PO/Invoice/Lot/Shipment Number" /></label>
+        <label>Truck Number: <br><input type="text" id="truckNumber" name="truckNumber" placeholder="Enter Truck No" /></label>
+        <label>Recieving Date: <br><input type="date" id="receivingDate" name="date" placeholder="Enter Recieving Date" /></label>
+        <label>Select Business Type: <br>
+          <select onchange="getBomDataStockIn()" id="businessTypes">
+            <option value="">Select</option>
+          </select>
+        </label>
+        <label>Select Warehouse: <br>
+          <select onchange="selectWarehouseAddStock()" id="warehouse">
+            <option value="">Select</option>
+          </select>
+        </label>
+      </div>
+      </fieldset>
+      <div class="loader" id="loader"></div>
+      <div id="allItemDetails" style="display: none;">
+      <fieldset id="noOfPallotDiv" style="background:#c1c1c1;overflow: hidden;">
+        <label>Types of Pallots: <input type="number" name="noOfPallot" id="noOfPallot" min="0" oninput="validity.valid||(value='');" placeholder="Enter Total Pallots" /></label>
+        <div class="searchItemDiv">
+          <div>
+            <input style="border-style: ridge;" oninput="onInput1()" list="allItems1"  type="text" placeholder="Search PartNo/Nom/NSN" id="addUIMItem" name="addUIMItem">
+            <datalist id="allItems1"></datalist>
+          </div>
+          <a href="D:/wmsDocs/uimSerializationTemplate.xlsx">Download Template</a>
+        </div>
+        <div class="uimStockDetail">
+          <label>Part Number</label>
+          <label>Nomenclature</label>
+          <label>NSN</label>
+            <!-- <label>Qty</label> -->
+            <label>Serialization</label>
+            <label>Remove</label>
+        </div>
+        <div id="uimItems">
+        <!-- <div class="itemDetails uimStockDetail"> -->
+          <!-- <div><p>111111111</p></div>
+          <div><p>Tools</p></div>
+          <div><p>2222</p></div>
+          <div><p>500</p></div>
+          <div><input type="file" id="equipmentFile" accept=".csv"></div>
+          <div><span class="fa fa-minus"></span></div> -->
+        <!-- </div> -->
+      </div>
+      </fieldset>
+      <label>Types of Enquipments: <input type="number" name="noOfEquipment" id="noOfEquipment" min="0" oninput="validity.valid||(value='');" placeholder="Enter Total Equipments" /></label>
+    </fieldset>
+      <fieldset id="noOfEquipmentDiv" style="background:#c1c1c1;overflow: hidden;">
+        <div class="searchItemDiv">
+          <input style="border-style: ridge;" oninput="onInput2()" type="text" list="allItems2" placeholder="Search PartNo/Nom/NSN" id="addEquipmentItem" name="addEquipmentItem">
+          <datalist id="allItems2">
+          </datalist>
+          <a href="D:/wmsDocTemp/equipmentSerializationTemplate.xlsx">Download Template</a>
+        </div>
+        <div class="uimStockDetail">
+          <label>Part Number</label>
+          <label>Nomenclature</label>
+          <label>NSN</label>
+            <!-- <label>Qty</label> -->
+            <label>Serialization</label>
+            <label>Remove</label>
+        </div>
+        <div id="equipmentItems">
+        <!-- <div class="itemDetails uimStockDetail">
+          <div><p>111111111</p></div>
+          <div><p>Tools</p></div>
+          <div><p>2222</p></div>
+          <div><p>500</p></div>
+          <div><input type="file" id="equipmentFile" accept=".csv"></div>
+          <div><span class="fa fa-minus"></span></div>
+        </div> -->
+        </div>
+      </fieldset>
+    </form>
+      <form id="stockInFormDocs" method="POST" enctype="multipart/form-data">
+        <label>Attach UIM Stock Document </label><input style="margin:0px 0px;" type="file" name="uimStockDocument" id="uimStockDocument"/><br>
+        <label>Attach Equipments Stock Document </label><input style="margin:0px 0px;" type="file" name="equipStockDocument" id="equipStockDocument"/><br><br>
+      </form>
+      <button class="submit" onclick="submitStockInForm()">Submit</button>
+    </div>
+    <button class="stockOutQtyModalSubmit" style="margin: 0 auto;display: block;width: 90%;" onclick="history.back()">Cancel</button><br><br>
+    
+
+    <!-- Modals -->
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"></button> -->
+    <!-- Modal -->
+    <div class="modal fade" id="addItemLoc" tabindex="-1" style="overflow:scroll;" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" style="overflow:scroll;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="addItemLocTitle">Add Locations</h5>
+            <button type="button" onclick="instantAddItemLocClose()" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="modalContent" style="background: #f1f3f4;">
+              <!-- <div class="addLocations">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div> -->
+                <!-- <input type="text" placeholder="Enter SKU/PartNo">
+                <div class="sku">
+                    <div style="background:url(assests/images/dashboardBackground.jpg)"></div>
+                    <div style="background:white;">
+                        <p>Part No</p>
+                        <p>Nomenclature</p>
+                        <p>UoM</p>
+                        <p>NSN</p>
+                    </div>
+                </div> -->
+            </div>
+            <div class="model-footer">
+              <button class="addLocButton" id="continue" onclick="addUIMItemWithLoc()">Continue</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+    <script>
+      function onInput1() {
+        console.log("access2");
+        var val = document.getElementById("addUIMItem").value;
+        var opts = document.getElementById('allItems1').childNodes;
+        console.log(val);
+        console.log(opts);
+        for (var i = 0; i < opts.length; i++) {
+          console.log(opts[i].value);
+          if (opts[i].value == val) {
+            console.log(val)
+            addUIMItem(opts[i].value);
+            // // alert();
+            break;
+          }
+        }
+        return false;
+      }
+      function onInput2() {
+        var val = document.getElementById("addEquipmentItem").value;
+        var opts = document.getElementById('allItems2').childNodes;
+        for (var i = 0; i < opts.length; i++) {
+          if (opts[i].value === val) {
+            addEquipItem(opts[i].value);
+            // // alert();
+            break;
+            return false;
+          }
+        }
+      }
+        $("#form").submit(function(e){
+            return false;
+        });
+        $("#stockInFormDocs").submit(function(e){
+            return false;
+        });
+    </script>
+  </body>
+</html>

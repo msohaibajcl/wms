@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="AJCL" name="author" />
+    <link rel="shortcut icon" href="assests/images/ajclLogo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJCL | WMS</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assests/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body onload="dashboard()" class="dashboardBackground">
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar" class="">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class="fa fa-bars"></i>
+          <span class="sr-only">Menu</span>
+        </button>
+    </div>
+    <div class="logoSection">
+        <h1><a href="index.html" class="logo">WMS</a></h1>
+        <span class="tagLine">Warehouse Management System</span>
+    </div>
+    <ul class="list-unstyled components mb-5">
+      <li class="active">
+        <a href="#"><span class="fa fa-home mr-3"></span>Dashboard</a>
+      </li>
+      <li>
+        <a href="uploadBom.html"><span class="fa fa-upload mr-3"></span>BOM/E Data</a>
+      </li>
+      <li>
+          <a href="warehouses.html"><span class="fa fa-sitemap mr-3"></span>Warehouses</a>
+      </li>
+      <li>
+        <a href="endUser.html"><span class="fa fa-industry mr-3"></span>Consignee</a>
+      </li>
+      <!-- <li>
+        <a href="#"><span class="fa fa-plus mr-3"></span>Inhouse Movement</a>
+      </li> -->
+      <li>
+        <a href="stockIn.html"><span class="fa fa-plus mr-3"></span>Stock In</a>
+      </li>
+      <li>
+        <a href="w2wTransferSelection.html"><span class="fa fa-plus mr-3"></span>W2W Transfer</a>
+      </li>
+      <li>
+        <a href="stockOut.html"><span class="fa fa-share-square-o mr-3"></span>Stock Out</a>
+      </li>
+      <li>
+        <a href="stockReturn.html"><span class="fa fa-download mr-3"></span>Stock Return</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-file-text-o mr-3"></span>Reports</a>
+      </li>
+      <!-- <li>
+        <a href="uploadBom.html"><span class="fa fa-upload mr-3"></span>BOM/IPL</a>
+      </li> -->
+      <li>
+        <a href="http://crms.ajcl.net/"><span class="fa fa-sign-out mr-3"></span>Logout</a>
+      </li>
+      <!-- <li>
+        <a href="#"><span class="fa fa-info-circle mr-3"></span>Help & Support</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-cog mr-3"></span>Setting</a>
+      </li> -->
+    </ul>
+
+    </nav>
+
+    <!-- Page Content  -->
+  <div id="content" class="track p-4 p-md-5 pt-5" style="display:block;">
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Utilization</th>
+            <th>Total Quantity</th>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Total Businesses</td>
+            <td id="totalBusniessU">0</td>
+            <td id="totalBusniessT">0</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Total Warehouses</td>
+            <td id="totalWarehousesU">0</td>
+            <td id="totalWarehousesT">0</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Total Sub-Warehouses</td>
+            <td id="totalSubWarehousesU">0</td>
+            <td id="totalSubWarehousesT">0</td>
+        </tr>
+        <tr style="text-align: left;">
+            <td style="text-align: left;">Total Pallots</td>
+            <td id="totalPallotsU">0</td>
+            <td id="totalPallotsT">0</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Total Bin</td>
+            <td id="totalBinsU">0</td>
+            <td id="totalBinsT">0</td>
+        </tr>
+    </table>
+    </div>
+
+<script src="js/index.js"></script>
+<!-- <script src="js/jquery.min.js"></script> -->
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

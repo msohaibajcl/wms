@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="AJCL" name="author" />
+    <link rel="shortcut icon" href="assests/images/ajclLogo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJCL | WMS</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assests/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body class="dashboardBackground">
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar" class="">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class="fa fa-bars"></i>
+          <span class="sr-only">Menu</span>
+        </button>
+    </div>
+    <div class="logoSection">
+          <h1><a href="index.html" class="logo">WMS</a></h1>
+          <span class="tagLine">Warehouse Management System</span>
+    </div>
+    <ul class="list-unstyled components mb-5">
+      <li>
+        <a href="dashboard.html"><span class="fa fa-home mr-3"></span>Dashboard</a>
+      </li>
+      <li class="active">
+          <a href="#"><span class="fa fa-sitemap mr-3"></span>Business Project</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-plus mr-3"></span>Warehouse</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-industry mr-3"></span>End User</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-plus mr-3"></span>Stock In</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-share-square-o mr-3"></span>Stock Out</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-download mr-3"></span>Stock Return</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-file-text-o mr-3"></span>Reports</a>
+      </li>
+      <li>
+        <a href="uploadBom.html"><span class="fa fa-upload mr-3"></span>BOM Data</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-info-circle mr-3"></span>Help & Support</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa fa-cog mr-3"></span>Setting</a>
+      </li>
+    </ul>
+
+    </nav>
+
+    <!-- Page Content  -->
+  <div id="content" class="track p-4 p-md-5 pt-5">
+    <h4 id="title">BUSINESS PROJECTS</h4>
+    <div class="businesses" id="businesses">
+        <div class="business">
+            <a onclick="goToBusiness()"><span class="fa fa-clone fa-7x mr-3"></span><p>T&T</p></a>
+        </div>
+        <div class="business">
+            <a onclick="goToBusiness()"><span class="fa fa-clone fa-7x mr-3"></span><p>JHPL</p></a>
+        </div>
+        <div class="business">
+            <a onclick="goToBusiness()"><span class="fa fa-clone fa-7x mr-3"></span><p>Aviation</p></a>
+        </div>
+        <div class="business">
+            <a onclick="goToBusiness()"><span class="fa fa-clone fa-7x mr-3"></span><p>Claiser</p></a>
+        </div>
+        <div class="business">
+            <a onclick="goToBusiness()"><span class="fa fa-plus fa-7x mr-3"></span><p>Business</p></a>
+        </div>
+    </div>
+    </div>
+
+<script src="js/index.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

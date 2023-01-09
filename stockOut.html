@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AJCL | Stock In</title>
+    <link rel="shortcut icon" href="assests/images/ajclLogo.svg">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="assests/css/stockIn.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <style>
+    p{
+      text-align: center;
+      margin: 0px;
+    }
+    .modal-content{
+      margin-top: 50%;
+    }
+  </style>
+  <body onload="loadStockOut()">
+    <div class="warehouseOutFormMainBody" id="body" style="width: 80%;">
+    <h1>Stock Out Form</h1>
+    <p style="text-align: center;">Please fill out this form with the required information</p>
+    <form action="#" id="form">
+      <label>Add Truck Number: <br><input type="text" id="truckNumber" name="truckNumber" placeholder="Enter Truck No" /></label>
+      <label>Warehouse* 
+        <select id="warehouses" onchange="stockOutWarehouse(this)">
+          <option value="">Select</option>
+        </select>
+      </label>
+      <label>Consignee* 
+        <select id="consignees" onchange="stockOutLocation(this)">
+          <option value="">Select</option>
+        </select>
+      </label>
+      <label><p style="text-align:left;" id="divisions">Warehouse Locations*</p>
+        <select id="locations" onchange="stockOutLocation(this)">
+          <option value="">Select</option>
+        </select>
+      </label><br>
+      <label>Equipments in Location/Pallots/Bins* </label>
+      <div id="stock" class="stock">
+        <!-- <div style="padding: 10%;">
+          <div class="stockDiv">11</div>
+          <p>Tool Kit<br>1111111</p>
+        </div> -->
+      </div>
+      <hr>
+      <label>Selected Stock/Cart</label>
+      <div>
+        <table class="stockOutCart" id="selectedStock">
+          <tr>
+            <th>S.No</th>
+            <th>Part No</th>
+            <th>Nomenclature</th>
+            <th>Quantity</th>
+            <th>Location</th>
+            <th>Remove</th>
+          </tr>
+        </table>
+      </div>
+    </form>
+      <form id="stockOutDocForm" method="POST" enctype="multipart/form-data">
+          <label>Attach Stock Out Document </label><input style="margin:0px 0px;" type="file" name="stockOutDoc" id="stockOutDoc"/><br>
+      </form><hr>
+      <button class="stockOutQtyModalSubmit" style="background: green;" onclick="stockOutSubmit()">Proceed</button><br>
+      <button class="stockOutQtyModalSubmit" onclick="history.back()">Cancel</button><br><br>
+  </div>
+    <!-- Modals -->
+
+    <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 id="header"></h5>
+              <button type="button" onclick="stockOutQtyClose()" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" style="background: #f1f3f4;">
+              <div  id="modalBody">
+                  <label>Enter Quantity*</label>
+              </div>
+              <br>
+              <button class="stockOutQtyModalSubmit" onclick="stockOutSelectedQuantity()">Continue</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<script src="js/index.js"></script>
+    <script>
+        $("#form").submit(function(e){
+            return false;
+        });
+    </script>
+  </body>
+</html>
